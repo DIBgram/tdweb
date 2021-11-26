@@ -40,7 +40,6 @@ jobs:
           cd emsdk
           ./emsdk install 2.0.6
           ./emsdk activate 2.0.6
-          source ./emsdk_env.sh
           cd ..
         shell: bash
         
@@ -57,25 +56,33 @@ jobs:
       
       - name: Build OpenSSL
         run: |
-          cd td/example/web
+          cd emsdk
+          source ./emsdk_env.sh
+          cd ../td/example/web
           ./build-openssl.sh
         shell: bash
         
       - name: Build TDLib
         run: |
-          cd td/example/web
+          cd emsdk
+          source ./emsdk_env.sh
+          cd ../td/example/web
           ./build-tdlib.sh
         shell: bash
         
       - name: Copy TDLib
         run: |
-          cd td/example/web
+          cd emsdk
+          source ./emsdk_env.sh
+          cd ../td/example/web
           ./copy-tdlib.sh
         shell: bash
         
       - name: Build TDWeb
         run:  |
-          cd td/example/web
+          cd emsdk
+          source ./emsdk_env.sh
+          cd ../td/example/web
           ./build-tdweb.sh
         
       - name: Upload TDWeb build artifact
