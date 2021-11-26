@@ -59,36 +59,36 @@ jobs:
           sed -i -- 's/set(TD_LINKER_FLAGS "-Wl,--gc-sections -Wl,--exclude-libs,ALL")/# set(TD_LINKER_FLAGS "-Wl,--gc-sections -Wl,--exclude-libs,ALL")/g' "${GITHUB_WORKSPACE}/td/CMake/TdSetUpCompiler.cmake"
         shell: bash
       
-#       - name: Build OpenSSL
-#         run: |
-#           cd emsdk
-#           source ./emsdk_env.sh
-#           cd ../td/example/web
-#           ./build-openssl.sh
-#         shell: bash
+      - name: Build OpenSSL
+        run: |
+          cd emsdk
+          source ./emsdk_env.sh
+          cd ../td/example/web
+          ./build-openssl.sh
+        shell: bash
         
-#       - name: Build TDLib
-#         run: |
-#           cd emsdk
-#           source ./emsdk_env.sh
-#           cd ../td/example/web
-#           ./build-tdlib.sh
-#         shell: bash
+      - name: Build TDLib
+        run: |
+          cd emsdk
+          source ./emsdk_env.sh
+          cd ../td/example/web
+          ./build-tdlib.sh
+        shell: bash
         
-#       - name: Copy TDLib
-#         run: |
-#           cd emsdk
-#           source ./emsdk_env.sh
-#           cd ../td/example/web
-#           ./copy-tdlib.sh
-#         shell: bash
+      - name: Copy TDLib
+        run: |
+          cd emsdk
+          source ./emsdk_env.sh
+          cd ../td/example/web
+          ./copy-tdlib.sh
+        shell: bash
         
-#       - name: Build TDWeb
-#         run:  |
-#           cd emsdk
-#           source ./emsdk_env.sh
-#           cd ../td/example/web
-#           ./build-tdweb.sh
+      - name: Build TDWeb
+        run:  |
+          cd emsdk
+          source ./emsdk_env.sh
+          cd ../td/example/web
+          ./build-tdweb.sh
           
       - name: Zip built TDWeb
         uses: TheDoctor0/zip-release@0.6.0
