@@ -1,0 +1,71 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build TDWeb
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      version: 
+        required: true
+      ref:
+        default: master
+        description: TDLib repo ref (commit/tag/branch)
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout EMSDK
+        uses: actions/checkout@v2
+        with:
+          repository: emscripten-core/emsdk
+          path: emsdk
+        
+      - name: Set-up EMSDK
+        run: |
+          cd emsdk
+          ./emsdk install 2.0.6
+          ./emsdk activate 2.0.6
+          source ./emsdk_env.sh
+          cd ..
+        shell: bash
+        
+      - name: Install TDLib dependencies
+        run: sudo apt install cmake make clang openssl zlib1g gperf php
+        shell: bash
+      
+      - name: Checkout TDLib
+        uses: actions/checkout@v2
+        with:
+          repository: tdlib/td
+          ref: ${{ github.event.inputs.ref }}
+          path: td
+        
+      - run: cd td/example/web
+      
+      - name: Build OpenSSL
+        run: ./build-openssl.sh
+        shell: bash
+        
+      - name: Build TDLib
+        run: ./build-tdlib.sh
+        shell: bash
+        
+      - name: Copy TDLib
+        run: ./copy-tdlib.sh
+        shell: bash
+        
+      - name: Build TDWeb
+        run: ./build-tdweb.sh
+        
+      - name: Upload TDWeb build artifact
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: TDWeb ${{ github.event.inputs.version }}
