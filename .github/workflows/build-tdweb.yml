@@ -22,6 +22,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          
+      - name: Install webpack
+        run: npm install -g webpack
+        
       - name: Checkout EMSDK
         uses: actions/checkout@v2
         with:
@@ -47,25 +54,32 @@ jobs:
           repository: tdlib/td
           ref: ${{ github.event.inputs.ref }}
           path: td
-        
-      - run: cd td/example/web
       
       - name: Build OpenSSL
-        run: ./build-openssl.sh
+        run: |
+          cd td/example/web
+          ./build-openssl.sh
         shell: bash
         
       - name: Build TDLib
-        run: ./build-tdlib.sh
+        run: |
+          cd td/example/web
+          ./build-tdlib.sh
         shell: bash
         
       - name: Copy TDLib
-        run: ./copy-tdlib.sh
+        run: |
+          cd td/example/web
+          ./copy-tdlib.sh
         shell: bash
         
       - name: Build TDWeb
-        run: ./build-tdweb.sh
+        run:  |
+          cd td/example/web
+          ./build-tdweb.sh
         
       - name: Upload TDWeb build artifact
         uses: actions/upload-artifact@v2.2.4
         with:
           name: TDWeb ${{ github.event.inputs.version }}
+          path: td/examble/web/tdweb
