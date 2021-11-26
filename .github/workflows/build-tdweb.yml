@@ -95,7 +95,6 @@ jobs:
         with:
           filename: tdweb.zip
           path: td/example/web/tdweb/
-          directory: ${GITHUB_WORKSPACE}
           exclusions: .git
         
       - name: Upload TDWeb build artifact
