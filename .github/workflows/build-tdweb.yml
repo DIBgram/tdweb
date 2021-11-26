@@ -95,7 +95,7 @@ jobs:
         with:
           filename: tdweb.zip
           path: td/example/web/tdweb/
-          exclusions: .git
+          exclusions: '*.git* /*node_modules/*'
         
       - name: Upload TDWeb build artifact
         uses: actions/upload-artifact@v2.2.4
