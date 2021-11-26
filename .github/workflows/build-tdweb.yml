@@ -53,12 +53,16 @@ jobs:
           repository: tdlib/td
           ref: ${{ github.event.inputs.ref }}
           path: td
-          
-      - name: Apply build patch
-        uses: datamonsters/replace-action@v2
+      
+      - name: Patch build script
+        uses: visiosto/replace-value@v1.0.0
         with:
-          files: td/CMake/TdSetUpCompiler.cmake
-          replacements: 'set(TD_LINKER_FLAGS "-Wl,--gc-sections -Wl,--exclude-libs,ALL")=# set(TD_LINKER_FLAGS "-Wl,--gc-sections -Wl,--exclude-libs,ALL")'
+          # The file where the content to replace is.
+          file: td/CMake/TdSetUpCompiler.cmake
+          # The value that will be replaced.
+          replaced: 'set(TD_LINKER_FLAGS "-Wl,--gc-sections -Wl,--exclude-libs,ALL")'
+          # The value that the original value is replaced with.
+          value: '# set(TD_LINKER_FLAGS "-Wl,--gc-sections -Wl,--exclude-libs,ALL")'
       
       - name: Build OpenSSL
         run: |
