@@ -101,4 +101,4 @@ jobs:
         uses: actions/upload-artifact@v2.2.4
         with:
           name: TDWeb ${{ github.event.inputs.version }}
-          path: td/examble/web/tdweb
+          path: tdweb.zip
