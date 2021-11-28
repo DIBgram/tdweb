@@ -21,9 +21,9 @@ You can also add the field '@extra' to any query to TDLib and the response will 
 ## Installation
 As usual, add npm tdweb package into your project:
 ```
-npm install tdweb
+npm install @dibgram/tdweb
 ```
 
-All files will be installed into `node_modules/tdweb/dist/` folder. For now, it is your responsibility to make
+All files will be installed into `node_modules/@dibgram/tdweb/dist/` folder. For now, it is your responsibility to make
 those files loadable from your server. For example, [telegram-react](https://github.com/evgeny-nadymov/telegram-react)
 manually copies these files into the `public` folder. If you know how to avoid this problem, please tell us.
