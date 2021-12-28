@@ -22,9 +22,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - uses: actions/checkout@v2
+        with:
+          path: repo
       - uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 15
           
       - name: Install webpack
         run: npm install -g webpack
@@ -89,16 +92,51 @@ jobs:
           source ./emsdk_env.sh
           cd ../td/example/web
           ./build-tdweb.sh
-          
-      - name: Zip built TDWeb
-        uses: TheDoctor0/zip-release@0.6.0
-        with:
-          filename: tdweb.zip
-          path: td/example/web/tdweb/
-          exclusions: '*.git* /*node_modules/*'
         
-      - name: Upload TDWeb build artifact
-        uses: actions/upload-artifact@v2.2.4
+#       - name: Zip built TDWeb
+#         uses: TheDoctor0/zip-release@0.6.0
+#         with:
+#           filename: tdweb.zip
+#           path: td/example/web/tdweb/
+#           exclusions: '*.git* /*node_modules/*'
+   
+
+      - name: Install tdweb dependencies
+        run: npm ci
+        
+      - name: Replace src and dist folders
+        run: |
+          rm -rf ./repo/src
+          cp -r ./td/example/web/tdweb/src ./repo
+          rm -rf ./repo/dist
+          cp -r ./td/example/web/tdweb/src
+      
+      - name: Commit changes
+        uses: zwaldowski/git-commit-action@v1
         with:
-          name: TDWeb ${{ github.event.inputs.version }}
-          path: tdweb.zip
+          # Directory to create commit in
+          working_directory: ./repo
+          # Commit message
+          commit_message: Update to ${{ github.event.inputs.version }}
+          
+      - name: Update npm version
+        run: |
+          npm version ${{ github.event.inputs.version }}
+          git tag -d v${{ github.event.inputs.version }}
+          git reset --soft HEAD~2 &&
+          
+      - name: Commit changes again
+        uses: zwaldowski/git-commit-action@v1
+        with:
+          # Directory to create commit in
+          working_directory: ./repo
+          # Commit message
+          commit_message: Update to ${{ github.event.inputs.version }}
+          
+      - name: Tag & push
+        run: |
+          git push
+          
+          
+          
+      
