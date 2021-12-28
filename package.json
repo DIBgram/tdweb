@@ -5,7 +5,7 @@
   "main": "dist/tdweb.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DIBgram/tdweb.git"
+    "url": "https://github.com/DIBgram/tdweb.git#autorelease-test"
   },
   "files": [
     "dist"
