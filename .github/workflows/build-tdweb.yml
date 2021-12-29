@@ -102,7 +102,9 @@ jobs:
    
 
       - name: Install tdweb dependencies
-        run: npm ci
+        run: |
+          cd repo
+          npm ci
         
       - name: Replace src and dist folders
         run: |
@@ -121,6 +123,7 @@ jobs:
           
       - name: Update npm version
         run: |
+          cd repo
           npm version ${{ github.event.inputs.version }}
           git tag -d v${{ github.event.inputs.version }}
           git reset --soft HEAD~2 &&
@@ -135,6 +138,7 @@ jobs:
           
       - name: Tag & push
         run: |
+          cd repo
           git push
           
           
