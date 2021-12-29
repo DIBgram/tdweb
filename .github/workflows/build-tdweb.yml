@@ -92,13 +92,6 @@ jobs:
           source ./emsdk_env.sh
           cd ../td/example/web
           ./build-tdweb.sh
-        
-#       - name: Zip built TDWeb
-#         uses: TheDoctor0/zip-release@0.6.0
-#         with:
-#           filename: tdweb.zip
-#           path: td/example/web/tdweb/
-#           exclusions: '*.git* /*node_modules/*'
    
 
       - name: Install tdweb dependencies
@@ -111,7 +104,7 @@ jobs:
           rm -rf ./repo/src
           cp -r ./td/example/web/tdweb/src ./repo
           rm -rf ./repo/dist
-          cp -r ./td/example/web/tdweb/src
+          cp -r ./td/example/web/tdweb/src ./repo
       
       - name: Commit changes
         uses: zwaldowski/git-commit-action@v1
