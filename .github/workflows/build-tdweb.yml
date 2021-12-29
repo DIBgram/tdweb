@@ -119,7 +119,7 @@ jobs:
           cd repo
           npm version ${{ github.event.inputs.version }}
           git tag -d v${{ github.event.inputs.version }}
-          git reset --soft HEAD~2 &&
+          git reset --soft HEAD~2
           
       - name: Commit changes again
         uses: zwaldowski/git-commit-action@v1
