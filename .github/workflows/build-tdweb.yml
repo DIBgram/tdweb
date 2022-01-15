@@ -135,9 +135,10 @@ jobs:
           git tag v{{ github.event.inputs.version }}
           git push
           
-#       - name: Publish to NPM
-#         uses: JS-DevTools/npm-publish@v1
-#         with:
-#           token: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to NPM
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: ./repo/package.json
           
       
