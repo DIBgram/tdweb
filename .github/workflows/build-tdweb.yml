@@ -104,7 +104,7 @@ jobs:
           rm -rf ./repo/src
           cp -r ./td/example/web/tdweb/src ./repo
           rm -rf ./repo/dist
-          cp -r ./td/example/web/tdweb/src ./repo
+          cp -r ./td/example/web/tdweb/dist ./repo
       
       - name: Commit changes
         uses: zwaldowski/git-commit-action@v1
