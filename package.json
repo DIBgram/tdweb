@@ -1,6 +1,6 @@
 {
   "name": "@dibgram/tdweb",
-  "version": "1.8.4-aeed6c4",
+  "version": "1.8.5",
   "description": "JavaScript interface for TDLib (Telegram library)",
   "main": "dist/tdweb.js",
   "repository": {
