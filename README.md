@@ -1,5 +1,7 @@
 ## tdweb - TDLib in a browser
 
+[![Verified on Openbase](https://badges.openbase.com/js/verified/@dibgram/tdweb.svg?token=owfearkEsWCIuqm+sbo1Bk6BvDzsHmBsoo+6e3UMLaM=)](https://openbase.com/js/@dibgram/tdweb?utm_source=embedded&amp;utm_medium=badge&amp;utm_campaign=rate-badge)
+
 [TDLib](https://github.com/tdlib/td) is a library for building Telegram clients. tdweb is a convenient wrapper for TDLib in a browser which controls TDLib instance creation,
 handles interaction with TDLib and manages a filesystem for persistent TDLib data.
 
