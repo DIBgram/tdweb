@@ -228,7 +228,7 @@ module.exports = _slicedToArray;
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = function() {
-  return new Worker(__webpack_require__.p + "a7751238ae85c4071ce3.worker.js");
+  return new Worker(__webpack_require__.p + "fc6ea1e0f0b5e5ca7906.worker.js");
 };
 
 /***/ }),
@@ -2521,7 +2521,7 @@ function () {
         return;
       }
 
-      logger.info('got broadcast message: ', message);
+      logger.info('receive broadcast message: ', message);
 
       if (message.isBackground && !this.isBackground) {// continue
       } else if (!message.isBackground && this.isBackground || message.timestamp > this.timestamp) {
@@ -2865,7 +2865,7 @@ function () {
         }
 
         if (info.arr) {
-          logger.warn('Got file.arr at least twice for the same file');
+          logger.warn('Receive file.arr at least twice for the same file');
           this.totalSize -= info.arr.length;
         }
 
@@ -2921,7 +2921,7 @@ function () {
 
                     if (blob) {
                       if (blob.size === 0) {
-                        logger.error('Got empty blob from db ', query.key);
+                        logger.error('Receive empty blob from db ', query.key);
                       }
 
                       query.resolve({
