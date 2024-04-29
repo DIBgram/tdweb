@@ -228,7 +228,7 @@ module.exports = _slicedToArray;
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = function() {
-  return new Worker(__webpack_require__.p + "9e71c1296e1d762cc5e9.worker.js");
+  return new Worker(__webpack_require__.p + "885d334040ad5d43a078.worker.js");
 };
 
 /***/ }),
