@@ -228,7 +228,7 @@ module.exports = _slicedToArray;
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = function() {
-  return new Worker(__webpack_require__.p + "a565f45be8e402922d91.worker.js");
+  return new Worker(__webpack_require__.p + "b5452fdafbf71399f7a9.worker.js");
 };
 
 /***/ }),
@@ -2063,22 +2063,16 @@ var v4_default = /*#__PURE__*/__webpack_require__.n(v4);
 // CONCATENATED MODULE: ./src/logger.js
 
 
-
-var logger_Logger =
-/*#__PURE__*/
-function () {
+var logger_Logger = /*#__PURE__*/function () {
   function Logger() {
     classCallCheck_default()(this, Logger);
-
     this.setVerbosity('WARNING');
   }
-
   createClass_default()(Logger, [{
     key: "debug",
     value: function debug() {
       if (this.checkVerbosity(4)) {
         var _console;
-
         (_console = console).log.apply(_console, arguments);
       }
     }
@@ -2087,7 +2081,6 @@ function () {
     value: function log() {
       if (this.checkVerbosity(4)) {
         var _console2;
-
         (_console2 = console).log.apply(_console2, arguments);
       }
     }
@@ -2096,7 +2089,6 @@ function () {
     value: function info() {
       if (this.checkVerbosity(3)) {
         var _console3;
-
         (_console3 = console).info.apply(_console3, arguments);
       }
     }
@@ -2105,7 +2097,6 @@ function () {
     value: function warn() {
       if (this.checkVerbosity(2)) {
         var _console4;
-
         (_console4 = console).warn.apply(_console4, arguments);
       }
     }
@@ -2114,7 +2105,6 @@ function () {
     value: function error() {
       if (this.checkVerbosity(1)) {
         var _console5;
-
         (_console5 = console).error.apply(_console5, arguments);
       }
     }
@@ -2122,11 +2112,9 @@ function () {
     key: "setVerbosity",
     value: function setVerbosity(level) {
       var default_level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'info';
-
       if (level === undefined) {
         level = default_level;
       }
-
       if (typeof level === 'string') {
         level = {
           ERROR: 1,
@@ -2136,7 +2124,6 @@ function () {
           DEBUG: 4
         }[level.toUpperCase()] || 2;
       }
-
       this.level = level;
     }
   }, {
@@ -2145,10 +2132,8 @@ function () {
       return this.level >= level;
     }
   }]);
-
   return Logger;
 }();
-
 var log = new logger_Logger();
 /* harmony default export */ var logger = (log);
 // CONCATENATED MODULE: ./src/index.js
@@ -2158,9 +2143,8 @@ var log = new logger_Logger();
 
 
 
- //import localforage from 'localforage';
 
-
+//import localforage from 'localforage';
 
 
 
@@ -2169,10 +2153,11 @@ var src_sleep = function sleep(ms) {
     return setTimeout(res, ms);
   });
 };
+
 /**
  * TDLib in a browser
  *
- * TDLib can be compiled to WebAssembly or asm.js using Emscripten compiler and used in a browser from JavaScript.
+ * TDLib can be compiled to WebAssembly using Emscripten compiler and used in a browser from JavaScript.
  * This is a convenient wrapper for TDLib in a browser which controls TDLib instance creation, handles interaction
  * with TDLib and manages a filesystem for persistent TDLib data.
  * TDLib instance is created in a Web Worker to run it in a separate thread.
@@ -2187,11 +2172,7 @@ var src_sleep = function sleep(ms) {
  * 5. The methods <code>getStorageStatistics</code>, <code>getStorageStatisticsFast</code>, <code>optimizeStorage</code>, and <code>addProxy</code> are not supported.<br>
  * <br>
  */
-
-
-var src_TdClient =
-/*#__PURE__*/
-function () {
+var src_TdClient = /*#__PURE__*/function () {
   /**
    * @callback TdClient~updateCallback
    * @param {Object} update The update.
@@ -2207,28 +2188,21 @@ function () {
    * @param {number} [options.logVerbosityLevel=2] - The initial verbosity level for the TDLib internal logging (0-1023).
    * @param {boolean} [options.useDatabase=true] - Pass false to use TDLib without database and secret chats. It significantly improves loading time, but some functionality is unavailable without the database.
    * @param {boolean} [options.readOnly=false] - For debug only. Pass true to open TDLib database in read-only mode
-   * @param {string} [options.mode=auto] - For debug only. The type of the TDLib build to use. 'asmjs' for asm.js and 'wasm' for WebAssembly. If mode == 'auto' WebAbassembly is used if supported by browser; otherwise, asm.js is used.
    */
   function TdClient(options) {
     var _this = this;
-
     classCallCheck_default()(this, TdClient);
-
     logger.setVerbosity(options.jsLogVerbosityLevel);
     this.worker = new worker_default.a();
-
     this.worker.onmessage = function (e) {
       _this.onResponse(e.data);
     };
-
     this.query_id = 0;
     this.query_callbacks = new Map();
-
     if ('onUpdate' in options) {
       this.onUpdate = options.onUpdate;
       delete options.onUpdate;
     }
-
     options.instanceName = options.instanceName || 'tdlib';
     this.fileManager = new src_FileManager(options.instanceName, this);
     this.worker.postMessage({
@@ -2237,6 +2211,7 @@ function () {
     });
     this.closeOtherClients(options);
   }
+
   /**
    * Send a query to TDLib.
    *
@@ -2248,29 +2223,21 @@ function () {
    *                         [classes]{@link https://core.telegram.org/tdlib/docs/classtd_1_1td__api_1_1_object.html}.
    * @returns {Promise} Promise object represents the result of the query.
    */
-
-
   createClass_default()(TdClient, [{
     key: "send",
     value: function send(query) {
       return this.doSend(query, true);
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "sendInternal",
     value: function sendInternal(query) {
       return this.doSend(query, false);
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "doSend",
     value: function doSend(query, isExternal) {
       var _this2 = this;
-
       this.query_id++;
-
       if (query['@extra']) {
         query['@extra'] = {
           '@old_extra': JSON.parse(JSON.stringify(query['@extra'])),
@@ -2281,31 +2248,24 @@ function () {
           query_id: this.query_id
         };
       }
-
       if (query['@type'] === 'setJsLogVerbosityLevel') {
         logger.setVerbosity(query.new_verbosity_level);
       }
-
       logger.debug('send to worker: ', query);
       var res = new Promise(function (resolve, reject) {
         _this2.query_callbacks.set(_this2.query_id, [resolve, reject]);
       });
-
       if (isExternal) {
         this.externalPostMessage(query);
       } else {
         this.worker.postMessage(query);
       }
-
       return res;
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "externalPostMessage",
     value: function externalPostMessage(query) {
       var unsupportedMethods = ['getStorageStatistics', 'getStorageStatisticsFast', 'optimizeStorage', 'addProxy', 'init', 'start'];
-
       if (unsupportedMethods.includes(query['@type'])) {
         this.onResponse({
           '@type': 'error',
@@ -2315,27 +2275,20 @@ function () {
         });
         return;
       }
-
       if (query['@type'] === 'readFile' || query['@type'] === 'readFilePart') {
         this.readFile(query);
         return;
       }
-
       if (query['@type'] === 'deleteFile') {
         this.deleteFile(query);
         return;
       }
-
       this.worker.postMessage(query);
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "readFile",
     value: function () {
-      var _readFile = asyncToGenerator_default()(
-      /*#__PURE__*/
-      regenerator_default.a.mark(function _callee(query) {
+      var _readFile = asyncToGenerator_default()(/*#__PURE__*/regenerator_default.a.mark(function _callee(query) {
         var response;
         return regenerator_default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -2343,11 +2296,9 @@ function () {
               case 0:
                 _context.next = 2;
                 return this.fileManager.readFile(query);
-
               case 2:
                 response = _context.sent;
                 this.onResponse(response);
-
               case 4:
               case "end":
                 return _context.stop();
@@ -2355,21 +2306,15 @@ function () {
           }
         }, _callee, this);
       }));
-
       function readFile(_x) {
         return _readFile.apply(this, arguments);
       }
-
       return readFile;
-    }()
-    /** @private */
-
+    }() /** @private */
   }, {
     key: "deleteFile",
     value: function () {
-      var _deleteFile = asyncToGenerator_default()(
-      /*#__PURE__*/
-      regenerator_default.a.mark(function _callee2(query) {
+      var _deleteFile = asyncToGenerator_default()(/*#__PURE__*/regenerator_default.a.mark(function _callee2(query) {
         var response;
         return regenerator_default.a.wrap(function _callee2$(_context2) {
           while (1) {
@@ -2377,39 +2322,31 @@ function () {
               case 0:
                 response = this.fileManager.deleteFile(query);
                 _context2.prev = 1;
-
                 if (!response.idb_key) {
                   _context2.next = 6;
                   break;
                 }
-
                 _context2.next = 5;
                 return this.sendInternal({
                   '@type': 'deleteIdbKey',
                   idb_key: response.idb_key
                 });
-
               case 5:
                 delete response.idb_key;
-
               case 6:
                 _context2.next = 8;
                 return this.sendInternal({
                   '@type': 'deleteFile',
                   file_id: query.file_id
                 });
-
               case 8:
                 _context2.next = 12;
                 break;
-
               case 10:
                 _context2.prev = 10;
                 _context2.t0 = _context2["catch"](1);
-
               case 12:
                 this.onResponse(response);
-
               case 13:
               case "end":
                 return _context2.stop();
@@ -2417,15 +2354,11 @@ function () {
           }
         }, _callee2, this, [[1, 10]]);
       }));
-
       function deleteFile(_x2) {
         return _deleteFile.apply(this, arguments);
       }
-
       return deleteFile;
-    }()
-    /** @private */
-
+    }() /** @private */
   }, {
     key: "onResponse",
     value: function onResponse(response) {
@@ -2433,26 +2366,21 @@ function () {
         if (key === 'arr' || key === 'data') {
           return undefined;
         }
-
         return value;
-      }))); // for FileManager
+      })));
 
+      // for FileManager
       response = this.prepareResponse(response);
-
       if ('@extra' in response) {
         var query_id = response['@extra'].query_id;
-
         var _this$query_callbacks = this.query_callbacks.get(query_id),
-            _this$query_callbacks2 = slicedToArray_default()(_this$query_callbacks, 2),
-            resolve = _this$query_callbacks2[0],
-            reject = _this$query_callbacks2[1];
-
+          _this$query_callbacks2 = slicedToArray_default()(_this$query_callbacks, 2),
+          resolve = _this$query_callbacks2[0],
+          reject = _this$query_callbacks2[1];
         this.query_callbacks["delete"](query_id);
-
         if ('@old_extra' in response['@extra']) {
           response['@extra'] = response['@extra']['@old_extra'];
         }
-
         if (resolve) {
           if (response['@type'] === 'error') {
             reject(response);
@@ -2465,89 +2393,67 @@ function () {
           this.onInited();
           return;
         }
-
         if (response['@type'] === 'fsInited') {
           this.onFsInited();
           return;
         }
-
         if (response['@type'] === 'updateAuthorizationState' && response.authorization_state['@type'] === 'authorizationStateClosed') {
           this.onClosed();
         }
-
         this.onUpdate(response);
       }
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "prepareFile",
     value: function prepareFile(file) {
       return this.fileManager.registerFile(file);
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "prepareResponse",
     value: function prepareResponse(response) {
       var _this3 = this;
-
       if (response['@type'] === 'file') {
         if (false) {}
-
         return this.prepareFile(response);
       }
-
       for (var key in response) {
         var field = response[key];
-
         if (field && typeof_default()(field) === 'object' && key !== 'data' && key !== 'arr') {
           response[key] = this.prepareResponse(field);
         }
       }
-
       return response;
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "onBroadcastMessage",
     value: function onBroadcastMessage(e) {
       //const message = e.data;
       var message = e;
-
       if (message.uid === this.uid) {
         logger.info('ignore self broadcast message: ', message);
         return;
       }
-
       logger.info('receive broadcast message: ', message);
-
-      if (message.isBackground && !this.isBackground) {// continue
+      if (message.isBackground && !this.isBackground) {
+        // continue
       } else if (!message.isBackground && this.isBackground || message.timestamp > this.timestamp) {
         this.close();
         return;
       }
-
       if (message.state === 'closed') {
         this.waitSet["delete"](message.uid);
-
         if (this.waitSet.size === 0) {
           logger.info('onWaitSetEmpty');
           this.onWaitSetEmpty();
-
           this.onWaitSetEmpty = function () {};
         }
       } else {
         this.waitSet.add(message.uid);
-
         if (message.state !== 'closing') {
           this.postState();
         }
       }
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "postState",
     value: function postState() {
@@ -2559,45 +2465,35 @@ function () {
       };
       logger.info('Post state: ', state);
       this.channel.postMessage(state);
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "onWaitSetEmpty",
-    value: function onWaitSetEmpty() {} // nop
-
-    /** @private */
-
+    value: function onWaitSetEmpty() {
+      // nop
+    } /** @private */
   }, {
     key: "onFsInited",
     value: function onFsInited() {
       this.fileManager.init();
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "onInited",
     value: function onInited() {
       this.isInited = true;
       this.doSendStart();
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "sendStart",
     value: function sendStart() {
       this.wantSendStart = true;
       this.doSendStart();
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "doSendStart",
     value: function doSendStart() {
       if (!this.isInited || !this.wantSendStart || this.state !== 'start') {
         return;
       }
-
       this.wantSendStart = false;
       this.state = 'active';
       var query = {
@@ -2605,9 +2501,7 @@ function () {
       };
       logger.info('send to worker: ', query);
       this.worker.postMessage(query);
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "onClosed",
     value: function onClosed() {
@@ -2616,19 +2510,15 @@ function () {
       logger.info('worker is terminated');
       this.state = 'closed';
       this.postState();
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "close",
     value: function close() {
       if (this.isClosing) {
         return;
       }
-
       this.isClosing = true;
       logger.info('close state: ', this.state);
-
       if (this.state === 'start') {
         this.onClosed();
         this.onUpdate({
@@ -2639,7 +2529,6 @@ function () {
         });
         return;
       }
-
       var query = {
         '@type': 'close'
       };
@@ -2647,17 +2536,12 @@ function () {
       this.worker.postMessage(query);
       this.state = 'closing';
       this.postState();
-    }
-    /** @private */
-
+    } /** @private */
   }, {
     key: "closeOtherClients",
     value: function () {
-      var _closeOtherClients = asyncToGenerator_default()(
-      /*#__PURE__*/
-      regenerator_default.a.mark(function _callee4(options) {
+      var _closeOtherClients = asyncToGenerator_default()(/*#__PURE__*/regenerator_default.a.mark(function _callee4(options) {
         var _this4 = this;
-
         return regenerator_default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
@@ -2672,28 +2556,22 @@ function () {
                   webWorkerSupport: false
                 });
                 this.postState();
-
                 this.channel.onmessage = function (message) {
                   _this4.onBroadcastMessage(message);
                 };
-
                 _context4.next = 11;
                 return src_sleep(300);
-
               case 11:
                 if (!(this.waitSet.size !== 0)) {
                   _context4.next = 14;
                   break;
                 }
-
                 _context4.next = 14;
                 return new Promise(function (resolve) {
                   _this4.onWaitSetEmpty = resolve;
                 });
-
               case 14:
                 this.sendStart();
-
               case 15:
               case "end":
                 return _context4.stop();
@@ -2701,37 +2579,27 @@ function () {
           }
         }, _callee4, this);
       }));
-
       function closeOtherClients(_x3) {
         return _closeOtherClients.apply(this, arguments);
       }
-
       return closeOtherClients;
-    }()
-    /** @private */
-
+    }() /** @private */
   }, {
     key: "onUpdate",
     value: function onUpdate(update) {
-      logger.info('ignore onUpdate'); //nop
+      logger.info('ignore onUpdate');
+      //nop
     }
   }]);
-
   return TdClient;
 }();
 /** @private */
-
-
-var src_ListNode =
-/*#__PURE__*/
-function () {
+var src_ListNode = /*#__PURE__*/function () {
   function ListNode(value) {
     classCallCheck_default()(this, ListNode);
-
     this.value = value;
     this.clear();
   }
-
   createClass_default()(ListNode, [{
     key: "erase",
     value: function erase() {
@@ -2765,22 +2633,15 @@ function () {
       if (this === this.next) {
         throw new Error('popLru from empty list');
       }
-
       return this.prev;
     }
   }]);
-
   return ListNode;
 }();
 /** @private */
-
-
-var src_FileManager =
-/*#__PURE__*/
-function () {
+var src_FileManager = /*#__PURE__*/function () {
   function FileManager(instanceName, client) {
     classCallCheck_default()(this, FileManager);
-
     this.instanceName = instanceName;
     this.cache = new Map();
     this.pending = [];
@@ -2789,26 +2650,22 @@ function () {
     this.lru = new src_ListNode(-1);
     this.client = client;
   }
-
   createClass_default()(FileManager, [{
     key: "init",
     value: function init() {
       var _this5 = this;
-
       this.idb = new Promise(function (resolve, reject) {
         var request = indexedDB.open(_this5.instanceName);
-
         request.onsuccess = function () {
           return resolve(request.result);
         };
-
         request.onerror = function () {
           return reject(request.error);
         };
-      }); //this.store = localforage.createInstance({
+      });
+      //this.store = localforage.createInstance({
       //name: instanceName
       //});
-
       this.isInited = true;
     }
   }, {
@@ -2819,7 +2676,6 @@ function () {
         this.totalSize -= info.arr.length;
         delete info.arr;
       }
-
       if (info.node) {
         info.node.erase();
         delete info.node;
@@ -2833,66 +2689,52 @@ function () {
       } else {
         file.local.is_downloading_completed = false;
       }
-
       var info = {};
       var cached_info = this.cache.get(file.id);
-
       if (cached_info) {
         info = cached_info;
       } else {
         this.cache.set(file.id, info);
       }
-
       if (file.idb_key) {
         info.idb_key = file.idb_key;
         delete file.idb_key;
       } else {
         delete info.idb_key;
       }
-
       if (file.arr) {
         var now = Date.now();
-
         while (this.totalSize > 100000000) {
-          var node = this.lru.getLru(); // immunity for 60 seconds
-
+          var node = this.lru.getLru();
+          // immunity for 60 seconds
           if (node.usedAt + 60 * 1000 > now) {
             break;
           }
-
           var lru_info = this.cache.get(node.value);
           this.unload(lru_info);
         }
-
         if (info.arr) {
           logger.warn('Receive file.arr at least twice for the same file');
           this.totalSize -= info.arr.length;
         }
-
         info.arr = file.arr;
         delete file.arr;
         this.totalSize += info.arr.length;
-
         if (!info.node) {
           logger.debug('LRU: create file_id: ', file.id, ' with arr.length: ', info.arr.length);
           info.node = new src_ListNode(file.id);
         }
-
         this.lru.onUsed(info.node);
         logger.info('Total file.arr size: ', this.totalSize);
       }
-
       info.file = file;
       return file;
     }
   }, {
     key: "flushLoad",
     value: function () {
-      var _flushLoad = asyncToGenerator_default()(
-      /*#__PURE__*/
-      regenerator_default.a.mark(function _callee5() {
+      var _flushLoad = asyncToGenerator_default()(/*#__PURE__*/regenerator_default.a.mark(function _callee5() {
         var pending, idb, transaction_id, read, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _loop, _iterator, _step;
-
         return regenerator_default.a.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
@@ -2901,7 +2743,6 @@ function () {
                 this.pending = [];
                 _context5.next = 4;
                 return this.idb;
-
               case 4:
                 idb = _context5.sent;
                 transaction_id = this.transaction_id++;
@@ -2911,19 +2752,15 @@ function () {
                 _didIteratorError = false;
                 _iteratorError = undefined;
                 _context5.prev = 11;
-
                 _loop = function _loop() {
                   var query = _step.value;
                   var request = read.get(query.key);
-
                   request.onsuccess = function (event) {
                     var blob = event.target.result;
-
                     if (blob) {
                       if (blob.size === 0) {
                         logger.error('Receive empty blob from db ', query.key);
                       }
-
                       query.resolve({
                         data: blob,
                         transaction_id: transaction_id
@@ -2932,49 +2769,37 @@ function () {
                       query.reject();
                     }
                   };
-
                   request.onerror = function () {
                     return query.reject(request.error);
                   };
                 };
-
                 for (_iterator = pending[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                   _loop();
                 }
-
                 _context5.next = 20;
                 break;
-
               case 16:
                 _context5.prev = 16;
                 _context5.t0 = _context5["catch"](11);
                 _didIteratorError = true;
                 _iteratorError = _context5.t0;
-
               case 20:
                 _context5.prev = 20;
                 _context5.prev = 21;
-
                 if (!_iteratorNormalCompletion && _iterator["return"] != null) {
                   _iterator["return"]();
                 }
-
               case 23:
                 _context5.prev = 23;
-
                 if (!_didIteratorError) {
                   _context5.next = 26;
                   break;
                 }
-
                 throw _iteratorError;
-
               case 26:
                 return _context5.finish(23);
-
               case 27:
                 return _context5.finish(20);
-
               case 28:
               case "end":
                 return _context5.stop();
@@ -2982,24 +2807,20 @@ function () {
           }
         }, _callee5, this, [[11, 16, 20, 28], [21,, 23, 27]]);
       }));
-
       function flushLoad() {
         return _flushLoad.apply(this, arguments);
       }
-
       return flushLoad;
     }()
   }, {
     key: "load",
     value: function load(key, resolve, reject) {
       var _this6 = this;
-
       if (this.pending.length === 0) {
         setTimeout(function () {
           _this6.flushLoad();
         }, 1);
       }
-
       this.pending.push({
         key: key,
         resolve: resolve,
@@ -3009,11 +2830,8 @@ function () {
   }, {
     key: "doLoadFull",
     value: function () {
-      var _doLoadFull = asyncToGenerator_default()(
-      /*#__PURE__*/
-      regenerator_default.a.mark(function _callee6(info) {
+      var _doLoadFull = asyncToGenerator_default()(/*#__PURE__*/regenerator_default.a.mark(function _callee6(info) {
         var _this7 = this;
-
         var idb_key;
         return regenerator_default.a.wrap(function _callee6$(_context6) {
           while (1) {
@@ -3023,31 +2841,24 @@ function () {
                   _context6.next = 2;
                   break;
                 }
-
                 return _context6.abrupt("return", {
                   data: new Blob([info.arr]),
                   transaction_id: -1
                 });
-
               case 2:
                 if (!info.idb_key) {
                   _context6.next = 7;
                   break;
                 }
-
                 idb_key = info.idb_key; //return this.store.getItem(idb_key);
-
                 _context6.next = 6;
                 return new Promise(function (resolve, reject) {
                   _this7.load(idb_key, resolve, reject);
                 });
-
               case 6:
                 return _context6.abrupt("return", _context6.sent);
-
               case 7:
                 throw new Error('File is not loaded');
-
               case 8:
               case "end":
                 return _context6.stop();
@@ -3055,21 +2866,16 @@ function () {
           }
         }, _callee6);
       }));
-
       function doLoadFull(_x4) {
         return _doLoadFull.apply(this, arguments);
       }
-
       return doLoadFull;
     }()
   }, {
     key: "doLoad",
     value: function () {
-      var _doLoad = asyncToGenerator_default()(
-      /*#__PURE__*/
-      regenerator_default.a.mark(function _callee7(info, offset, size) {
+      var _doLoad = asyncToGenerator_default()(/*#__PURE__*/regenerator_default.a.mark(function _callee7(info, offset, size) {
         var count, _res, res, data_size;
-
         return regenerator_default.a.wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
@@ -3078,7 +2884,6 @@ function () {
                   _context7.next = 22;
                   break;
                 }
-
                 _context7.prev = 1;
                 _context7.next = 4;
                 return this.client.sendInternal({
@@ -3086,27 +2891,21 @@ function () {
                   file_id: info.file.id,
                   offset: offset
                 });
-
               case 4:
                 count = _context7.sent;
-
                 if (size) {
                   _context7.next = 9;
                   break;
                 }
-
                 size = count.count;
                 _context7.next = 11;
                 break;
-
               case 9:
                 if (!(size > count.count)) {
                   _context7.next = 11;
                   break;
                 }
-
                 throw new Error('File not loaded yet');
-
               case 11:
                 _context7.next = 13;
                 return this.client.sendInternal({
@@ -3115,39 +2914,31 @@ function () {
                   offset: offset,
                   count: size
                 });
-
               case 13:
                 _res = _context7.sent;
                 _res.data = new Blob([_res.data]);
-                _res.transaction_id = -2; //log.error(res);
-
+                _res.transaction_id = -2;
+                //log.error(res);
                 return _context7.abrupt("return", _res);
-
               case 19:
                 _context7.prev = 19;
                 _context7.t0 = _context7["catch"](1);
                 logger.info('readFilePart failed', info, offset, size, _context7.t0);
-
               case 22:
                 _context7.next = 24;
                 return this.doLoadFull(info);
-
               case 24:
                 res = _context7.sent;
                 // return slice(size, offset + size)
                 data_size = res.data.size;
-
                 if (!size) {
                   size = data_size;
                 }
-
                 if (offset > data_size) {
                   offset = data_size;
                 }
-
                 res.data = res.data.slice(offset, offset + size);
                 return _context7.abrupt("return", res);
-
               case 30:
               case "end":
                 return _context7.stop();
@@ -3155,11 +2946,9 @@ function () {
           }
         }, _callee7, this, [[1, 19]]);
       }));
-
       function doLoad(_x5, _x6, _x7) {
         return _doLoad.apply(this, arguments);
       }
-
       return doLoad;
     }()
   }, {
@@ -3171,43 +2960,33 @@ function () {
   }, {
     key: "readFile",
     value: function () {
-      var _readFile2 = asyncToGenerator_default()(
-      /*#__PURE__*/
-      regenerator_default.a.mark(function _callee8(query) {
+      var _readFile2 = asyncToGenerator_default()(/*#__PURE__*/regenerator_default.a.mark(function _callee8(query) {
         var info, response;
         return regenerator_default.a.wrap(function _callee8$(_context8) {
           while (1) {
             switch (_context8.prev = _context8.next) {
               case 0:
                 _context8.prev = 0;
-
                 if (this.isInited) {
                   _context8.next = 3;
                   break;
                 }
-
                 throw new Error('FileManager is not inited');
-
               case 3:
                 info = this.cache.get(query.file_id);
-
                 if (info) {
                   _context8.next = 6;
                   break;
                 }
-
                 throw new Error('File is not loaded');
-
               case 6:
                 if (info.node) {
                   this.lru.onUsed(info.node);
                 }
-
                 query.offset = query.offset || 0;
                 query.size = query.count || query.size || 0;
                 _context8.next = 11;
                 return this.doLoad(info, query.offset, query.size);
-
               case 11:
                 response = _context8.sent;
                 return _context8.abrupt("return", {
@@ -3216,7 +2995,6 @@ function () {
                   data: response.data,
                   transaction_id: response.transaction_id
                 });
-
               case 15:
                 _context8.prev = 15;
                 _context8.t0 = _context8["catch"](0);
@@ -3226,7 +3004,6 @@ function () {
                   code: 400,
                   message: _context8.t0
                 });
-
               case 18:
               case "end":
                 return _context8.stop();
@@ -3234,11 +3011,9 @@ function () {
           }
         }, _callee8, this, [[0, 15]]);
       }));
-
       function readFile(_x8) {
         return _readFile2.apply(this, arguments);
       }
-
       return readFile;
     }()
   }, {
@@ -3248,32 +3023,24 @@ function () {
         '@type': 'ok',
         '@extra': query['@extra']
       };
-
       try {
         if (!this.isInited) {
           throw new Error('FileManager is not inited');
         }
-
         var info = this.cache.get(query.file_id);
-
         if (!info) {
           throw new Error('File is not loaded');
         }
-
         var idb_key = this.doDelete(info);
-
         if (idb_key) {
           res.idb_key = idb_key;
         }
       } catch (e) {}
-
       return res;
     }
   }]);
-
   return FileManager;
 }();
-
 /* harmony default export */ var src = __webpack_exports__["default"] = (src_TdClient);
 
 /***/ })
