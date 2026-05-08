@@ -47,7 +47,7 @@
 /******/ 		promises.push(Promise.resolve().then(function() {
 /******/ 			// "1" is the signal for "already loaded"
 /******/ 			if(!installedChunks[chunkId]) {
-/******/ 				importScripts(__webpack_require__.p + "" + chunkId + "." + "b5452fdafbf71399f7a9" + ".worker.js");
+/******/ 				importScripts(__webpack_require__.p + "" + chunkId + "." + "8a2ea5aea50674d967ce" + ".worker.js");
 /******/ 			}
 /******/ 		}));
 /******/ 		return Promise.all(promises);
@@ -3023,7 +3023,7 @@ module.exports = _typeof;
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "3954d526ee7f66ea79957ddbbc4f4d44.wasm";
+module.exports = __webpack_require__.p + "b351db12a104e44cf97b09a3385b7077.wasm";
 
 /***/ }),
 /* 7 */
@@ -4306,7 +4306,7 @@ function _loadTdlibWasm() {
             }
             module = createTdwebModule({
               onRuntimeInitialized: function onRuntimeInitialized() {
-                logger.info('runtime intialized');
+                logger.info('runtime initialized');
                 onFS(module.FS);
               },
               instantiateWasm: function instantiateWasm(imports, successCallback) {
@@ -5548,7 +5548,7 @@ var worker_TdClient = /*#__PURE__*/function () {
           while (1) {
             switch (_context17.prev = _context17.next) {
               case 0:
-                // close db and cancell all timers
+                // close db and cancel all timers
                 this.isClosing = true;
                 if (!this.isStarted) {
                   _context17.next = 7;
